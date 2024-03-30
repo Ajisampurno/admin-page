@@ -13,7 +13,7 @@ class StoreOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'pd_id' => 'required',
+            'amount' => 'required',
         ];
     }
 }

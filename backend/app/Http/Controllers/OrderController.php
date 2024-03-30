@@ -15,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $data = Order::all();
+        return response()->json($data);
     }
 
     /**
@@ -36,7 +37,8 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        $data = Order::create($request->all());
+        return response()->json($data, 201);
     }
 
     /**
@@ -47,7 +49,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return response()->json($order);
     }
 
     /**
@@ -70,7 +72,9 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        $data = Order::findOrFail($order->id);
+        $data->update($request->all());
+        return response()->json($data, 200);
     }
 
     /**
@@ -81,6 +85,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return response()->json(['message' => 'Produk berhasil dihapus'], 200);
     }
 }

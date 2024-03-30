@@ -15,7 +15,8 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        //
+        $data = Categorie::all();
+        return response()->json($data);
     }
 
     /**
@@ -36,7 +37,8 @@ class CategorieController extends Controller
      */
     public function store(StoreCategorieRequest $request)
     {
-        //
+        $data = Categorie::create($request->all());
+        return response()->json($data, 201);
     }
 
     /**
@@ -45,9 +47,10 @@ class CategorieController extends Controller
      * @param  \App\Models\Categorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function show(Categorie $categorie)
+    public function show(Categorie $categorie, $id)
     {
-        //
+        $data = Categorie::findOrFail($id);
+        return $data;
     }
 
     /**
@@ -68,9 +71,11 @@ class CategorieController extends Controller
      * @param  \App\Models\Categorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategorieRequest $request, Categorie $categorie)
+    public function update(UpdateCategorieRequest $request, Categorie $categorie, $id)
     {
-        //
+        $data = Categorie::findOrFail($id);
+        $data->update($request->all());
+        return response()->json($data, 200);
     }
 
     /**
@@ -79,8 +84,10 @@ class CategorieController extends Controller
      * @param  \App\Models\Categorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categorie $categorie)
+    public function destroy(Categorie $categorie, $id)
     {
-        //
+        $data = Categorie::findOrFail($id);
+        $data->delete();
+        return response()->json(['message' => 'Produk berhasil dihapus'], 200);
     }
 }
