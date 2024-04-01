@@ -1,61 +1,58 @@
-# frontend
+# [Vue Paper Dashboard](https://cristijora.github.io/vue-paper-dashboard/)
 
-This template should help get you started developing with Vue 3 in Vite.
+> Admin dashboard based on paper dashboard UI template + vue-router
 
-## Recommended IDE Setup
+This project is a vue version of [Paper-dashboard](https://www.creative-tim.com/product/paper-dashboard)
+designed for vue js.The dashboard includes vue-router
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Check the [Live Demo here](https://cristijora.github.io/vue-paper-dashboard).
 
-## Type Support for `.vue` Imports in TS
+[Nuxt Version (outdated Bootstrap 3)](https://github.com/cristijora/vue-paper-dashboard-nuxt)
+![](http://i.imgur.com/3iC1hOs.gif)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Documentation
 
-## Customize configuration
+Link to [Documentation](http://vuejs.creative-tim.com/vue-paper-dashboard/documentation/)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Build Setup
 
-## Project Setup
+### install dependencies
 
-```sh
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### serve with hot reload at localhost:8080
 
-```sh
+```
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### build for production with minification
 
-```sh
+```
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### lint
 
-```sh
-npm run test:unit
 ```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
 npm run lint
 ```
+
+## Contribution guide
+
+- Fork the repository
+- `npm install` or `yarn install`
+- Make changes
+- Open Pull Request
+
+For detailed explanation on how things work, checkout the [guide](https://github.com/vuejs/vue-cli/blob/dev/docs/README.md)
+
+- [CHANGELOG](./CHANGELOG.md)
+- [version-badge](https://img.shields.io/badge/version-1.0.1-blue.svg)
+- [license-badge](https://img.shields.io/badge/license-MIT-blue.svg)
+
+## License
+
+[MIT](https://github.com/creativetimofficial/vue-paper-dashboard/blob/master/LICENSE.md)

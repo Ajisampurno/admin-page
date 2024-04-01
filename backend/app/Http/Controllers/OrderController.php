@@ -15,7 +15,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data = Order::all();
+        $data = Order::select('orders.id', 'name', 'amount')
+            ->join('products', 'products.id', '=', 'orders.pd_id')
+            ->get();
         return response()->json($data);
     }
 
