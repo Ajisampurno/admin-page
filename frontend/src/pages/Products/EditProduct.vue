@@ -10,19 +10,19 @@
                         <form @submit.prevent="updateData" class="edit-order-form">
                             <div class="form-group">
                                 <label for="code">Code:</label>
-                                <input type="text" class="form-control border" id="code" v-model="formData.code">
+                                <input type="text" class="form-control border" id="code" v-model="code">
                             </div>
                             <div class="form-group">
                                 <label for="ct_id">Categorie ID:</label>
-                                <input type="text" class="form-control border" id="ct_id" v-model.number="formData.ct_id">
+                                <input type="text" class="form-control border" id="ct_id" v-model.number="ct_id">
                             </div>
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <input type="text" class="form-control border" id="name" v-model="formData.name">
+                                <input type="text" class="form-control border" id="name" v-model="name">
                             </div>
                             <div class="form-group">
                                 <label for="price">Price:</label>
-                                <input type="text" class="form-control border" id="price" v-model="formData.price">
+                                <input type="text" class="form-control border" id="price" v-model="price">
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
@@ -39,20 +39,18 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            formData: {
-                code: '',
-                ct_id: '',
-                name: '',
-                price: ''
+            order: {
+                pd_id: '',
+                amount: 0
             }
         };
     },
     methods: {
-        fetchData() {
+        fetchOrder() {
             const id = this.$route.params.id;
             axios.get(`http://127.0.0.1:8000/api/products/${id}`)
                 .then(response => {
-                    this.formData = response.data;
+                    this.order = response.data;
                 })
                 .catch(error => {
                     console.error('Error fetching order:', error);
@@ -60,7 +58,7 @@ export default {
         },
         updateData() {
             const id = this.$route.params.id;
-            axios.put(`http://127.0.0.1:8000/api/products/${id}`, this.formData)
+            axios.put(`http://127.0.0.1:8000/api/products/${id}`, this.order)
                 .then(response => {
                     alert('Data berhasil di ubah');
                     this.$router.push('/order');
@@ -71,7 +69,7 @@ export default {
         }
     },
     mounted() {
-        this.fetchData();
+        this.fetchOrder();
     }
 };
 </script>

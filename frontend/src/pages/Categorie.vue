@@ -2,13 +2,9 @@
   <div>
     <div class="row">
       <div class="col-12">
-        <router-link to="/create-order" class="btn btn-primary mb-2">
-          Create Data
-        </router-link>
         <card :title="table1.title" :subTitle="table1.subTitle">
           <div slot="raw-content" class="table-responsive">
-            <paper-table :data="table1.data" :columns="table1.columns" :handle-delete="handleDelete">
-            </paper-table>
+            <paper-table :data="table1.data" :columns="table1.columns"></paper-table>
           </div>
         </card>
       </div>
@@ -27,9 +23,9 @@ export default {
   data() {
     return {
       table1: {
-        title: "Order Table",
-        subTitle: "Table of Orders",
-        columns: ["id", "pd_id", "amount", "action"],
+        title: "Categories Table",
+        subTitle: "Categories",
+        columns: ["id", "pd_id", "amount"],
         data: [],
       },
     };
@@ -44,18 +40,6 @@ export default {
           console.error('Error fetching orders:', error);
         });
     },
-    handleDelete(item) {
-      if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-      axios.delete(`http://127.0.0.1:8000/api/orders/${item.id}`)
-        .then(response => {
-          console.log('Deleted:', response.data);
-          this.fetchData();
-        })
-        .catch(error => {
-          console.error('Error deleting:', error);
-        });
-      }
-    }
   },
   mounted() {
     this.fetchData();
