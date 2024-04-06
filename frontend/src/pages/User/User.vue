@@ -30,14 +30,14 @@ export default {
       table1: {
         title: "Order Table",
         subTitle: "Table of Orders",
-        columns: ["name", "amount", "action"],
+        columns: ["id","name", "email","phone_number","address", "action"],
         data: [],
       },
     };
   },
   methods: {
     fetchData() {
-      axios.get('http://127.0.0.1:8000/api/orders')
+      axios.get('http://127.0.0.1:8000/api/users')
         .then(response => {
           this.table1.data = response.data;
         })
@@ -47,7 +47,7 @@ export default {
     },
     handleDelete(item) {
       if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-      axios.delete(`http://127.0.0.1:8000/api/orders/${item.id}`)
+      axios.delete(`http://127.0.0.1:8000/api/users/${item.id}`)
         .then(response => {
           console.log('Deleted:', response.data);
           this.fetchData();
@@ -58,7 +58,7 @@ export default {
       }
     },
     handleEdit(item) {
-      this.$router.push(`/edit-order/${item.id}`);
+      this.$router.push(`/edit-user/${item.id}`);
     }
   },
   mounted() {

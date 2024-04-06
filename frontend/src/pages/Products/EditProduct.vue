@@ -40,15 +40,17 @@ export default {
     data() {
         return {
             data: {
-                pd_id: '',
-                amount: 0
+                code: '',
+                ct_id: '',
+                name: '',
+                price: ''
             }
         };
     },
     methods: {
-        fetchdata() {
-            const id = this.$route.params.id;
-            axios.get(`http://127.0.0.1:8000/api/products/${id}`)
+        fetchData() {
+            const dataId = this.$route.params.id;
+            axios.get(`http://127.0.0.1:8000/api/products/${dataId}`)
                 .then(response => {
                     this.data = response.data;
                 })
@@ -57,8 +59,8 @@ export default {
                 });
         },
         updateData() {
-            const id = this.$route.params.id;
-            axios.put(`http://127.0.0.1:8000/api/products/${id}`, this.data)
+            const dataId = this.$route.params.id;
+            axios.put(`http://127.0.0.1:8000/api/products/${dataId}`, this.data)
                 .then(response => {
                     alert('Data berhasil di ubah');
                     this.$router.push('/products');
@@ -69,7 +71,7 @@ export default {
         }
     },
     mounted() {
-        this.fetchOrder();
+        this.fetchData();
     }
 };
 </script>

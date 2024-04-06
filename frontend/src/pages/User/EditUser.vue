@@ -9,13 +9,20 @@
                     <div class="edit-order">
                         <form @submit.prevent="updateData" class="edit-order-form">
                             <div class="form-group">
-                                <label for="pd_id">pd_id:</label>
-                                <input type="text" id="pd_id" v-model="formData.pd_id" class="form-control border">
+                                <label for="name">name:</label>
+                                <input type="text" id="name" v-model="formData.name" class="form-control border">
                             </div>
                             <div class="form-group">
-                                <label for="amount">Amount:</label>
-                                <input type="number" id="amount" v-model.number="formData.amount"
-                                    class="form-control border">
+                                <label for="email">email:</label>
+                                <input type="text" id="email" v-model="formData.email" class="form-control border">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">phone_number:</label>
+                                <input type="text" id="phone_number" v-model="formData.phone_number" class="form-control border">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">address:</label>
+                                <input type="text" id="address" v-model="formData.address" class="form-control border">
                             </div>
                             <button type="submit" class="btn btn-primary">Update Data</button>
                         </form>
@@ -33,15 +40,17 @@ export default {
     data() {
         return {
             formData: {
-                pd_id: '',
-                amount: ''
+                name: '',
+                email: '',
+                phone_number:'',
+                address:'',
             }
         };
     },
     methods: {
         fetchData() {
-            const id = this.$route.params.id;
-            axios.get(`http://127.0.0.1:8000/api/users/${id}`)
+            const dataId = this.$route.params.id;
+            axios.get(`http://127.0.0.1:8000/api/users/${dataId}`)
                 .then(response => {
                     this.formData = response.data;
                 })
@@ -50,11 +59,11 @@ export default {
                 });
         },
         updateData() {
-            const id = this.$route.params.id;
-            axios.put(`http://127.0.0.1:8000/api/users/${id}`, this.formData)
+            const dataId = this.$route.params.id;
+            axios.put(`http://127.0.0.1:8000/api/users/${dataId}`, this.formData)
                 .then(response => {
                     alert('Data berhasil di ubah');
-                    this.$router.push('/order');
+                    this.$router.push('/manage-user');
                 })
                 .catch(error => {
                     console.error('Error updating order:', error);

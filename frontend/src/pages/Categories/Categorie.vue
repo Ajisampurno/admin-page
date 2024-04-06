@@ -7,7 +7,8 @@
         </router-link>
         <card :title="table1.title" :subTitle="table1.subTitle">
           <div slot="raw-content" class="table-responsive">
-            <paper-table :data="table1.data" :columns="table1.columns" :handle-delete="handleDelete">
+            <paper-table :data="table1.data" :columns="table1.columns" :handleDelete="handleDelete"
+              :handleEdit="handleEdit">
             </paper-table>
           </div>
         </card>
@@ -29,7 +30,7 @@ export default {
       table1: {
         title: "Order Table",
         subTitle: "Table of Orders",
-        columns: ["id", "code", "name", "action"],
+        columns: ["id","code", "name", "action"],
         data: [],
       },
     };
@@ -41,7 +42,7 @@ export default {
           this.table1.data = response.data;
         })
         .catch(error => {
-          console.error('Error fetching orders:', error);
+          console.error('Error fetching categories:', error);
         });
     },
     handleDelete(item) {

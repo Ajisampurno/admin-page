@@ -17,6 +17,9 @@ import CreateCategorie from "@/pages/Categories/CreateCategorie.vue";
 import EditCategorie from "@/pages/Categories/EditCategorie.vue";
 import Login from "../pages/Auth/Login.vue";
 import Register from "../pages/Auth/Register.vue";
+import User from "../pages/User/User.vue";
+import CreateUser from "../pages/User/CreateUser.vue";
+import EditUser from "../pages/User/EditUser.vue";
 
 const routes = [
   {
@@ -47,12 +50,17 @@ const routes = [
       {
         path: "manage-user",
         name: "manage-user",
-        component: ManageUser,
+        component: User,
       },
       {
-        path: "product",
-        name: "product",
-        component: Product,
+        path: "create-user",
+        name: "create-user",
+        component: CreateUser,
+      },
+      {
+        path: "edit-user/:id",
+        name: "edit-user",
+        component: EditUser,
       },
       {
         path: "order",

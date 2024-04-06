@@ -14,6 +14,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
     public function register(Request $request)
     {
         // Validate incoming request
@@ -75,7 +76,9 @@ class AuthController extends Controller
     }
     public function index()
     {
-        //
+        $data = User::all();
+
+        return $data;
     }
 
     /**
@@ -86,7 +89,8 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = User::create($request->all());
+        return response()->json($data, 201);
     }
 
     /**
@@ -97,7 +101,7 @@ class AuthController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response()->json($user);
     }
 
     /**
@@ -109,7 +113,9 @@ class AuthController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = User::findOrFail($user->id);
+        $data->update($request->all());
+        return response()->json($data, 200);
     }
 
     /**
@@ -120,6 +126,7 @@ class AuthController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(['message' => 'Produk berhasil dihapus'], 200);
     }
 }

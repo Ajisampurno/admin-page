@@ -3,7 +3,6 @@
     <side-bar>
       <template slot="links">
         <sidebar-link to="/dashboard" name="Dashboard" icon="ti-panel" />
-        <sidebar-link to="/user" name="User Profile" icon="ti-user" />
         <sidebar-link to="/manage-user" name="Manage User" icon="ti-user" />
         <sidebar-link to="/product" name="Product" icon="ti-view-list-alt" />
         <sidebar-link to="/categorie" name="Categorie" icon="ti-view-list-alt" />
