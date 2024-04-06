@@ -15,8 +15,20 @@ import EditProduct from "@/pages/Products/EditProduct.vue";
 import Categorie from "@/pages/Categories/Categorie.vue";
 import CreateCategorie from "@/pages/Categories/CreateCategorie.vue";
 import EditCategorie from "@/pages/Categories/EditCategorie.vue";
+import Login from "../pages/Auth/Login.vue";
+import Register from "../pages/Auth/Register.vue";
 
 const routes = [
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register,
+  },
   {
     path: "/",
     component: DashboardLayout,
