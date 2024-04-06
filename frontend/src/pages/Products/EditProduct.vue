@@ -10,19 +10,19 @@
                         <form @submit.prevent="updateData" class="edit-order-form">
                             <div class="form-group">
                                 <label for="code">Code:</label>
-                                <input type="text" class="form-control border" id="code" v-model="code">
+                                <input type="text" class="form-control border" id="code" v-model="data.code">
                             </div>
                             <div class="form-group">
                                 <label for="ct_id">Categorie ID:</label>
-                                <input type="text" class="form-control border" id="ct_id" v-model.number="ct_id">
+                                <input type="text" class="form-control border" id="ct_id" v-model.number="data.ct_id">
                             </div>
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <input type="text" class="form-control border" id="name" v-model="name">
+                                <input type="text" class="form-control border" id="name" v-model="data.name">
                             </div>
                             <div class="form-group">
                                 <label for="price">Price:</label>
-                                <input type="text" class="form-control border" id="price" v-model="price">
+                                <input type="text" class="form-control border" id="price" v-model="data.price">
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
@@ -39,32 +39,32 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            order: {
+            data: {
                 pd_id: '',
                 amount: 0
             }
         };
     },
     methods: {
-        fetchOrder() {
+        fetchdata() {
             const id = this.$route.params.id;
             axios.get(`http://127.0.0.1:8000/api/products/${id}`)
                 .then(response => {
-                    this.order = response.data;
+                    this.data = response.data;
                 })
                 .catch(error => {
-                    console.error('Error fetching order:', error);
+                    console.error('Error fetching data:', error);
                 });
         },
         updateData() {
             const id = this.$route.params.id;
-            axios.put(`http://127.0.0.1:8000/api/products/${id}`, this.order)
+            axios.put(`http://127.0.0.1:8000/api/products/${id}`, this.data)
                 .then(response => {
                     alert('Data berhasil di ubah');
-                    this.$router.push('/order');
+                    this.$router.push('/products');
                 })
                 .catch(error => {
-                    console.error('Error updating order:', error);
+                    console.error('Error updating data:', error);
                 });
         }
     },

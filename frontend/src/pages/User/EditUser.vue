@@ -7,14 +7,14 @@
                 </div>
                 <div class="cart-body">
                     <div class="edit-order">
-                        <form @submit.prevent="updateOrder" class="edit-order-form">
+                        <form @submit.prevent="updateData" class="edit-order-form">
                             <div class="form-group">
-                                <label for="pd_id">Product ID:</label>
-                                <input type="text" id="pd_id" v-model="order.pd_id" class="form-control border">
+                                <label for="pd_id">pd_id:</label>
+                                <input type="text" id="pd_id" v-model="formData.pd_id" class="form-control border">
                             </div>
                             <div class="form-group">
                                 <label for="amount">Amount:</label>
-                                <input type="number" id="amount" v-model.number="order.amount"
+                                <input type="number" id="amount" v-model.number="formData.amount"
                                     class="form-control border">
                             </div>
                             <button type="submit" class="btn btn-primary">Update Data</button>
@@ -32,26 +32,26 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            order: {
+            formData: {
                 pd_id: '',
-                amount: 0
+                amount: ''
             }
         };
     },
     methods: {
-        fetchOrder() {
-            const orderId = this.$route.params.id;
-            axios.get(`http://127.0.0.1:8000/api/orders/${orderId}`)
+        fetchData() {
+            const id = this.$route.params.id;
+            axios.get(`http://127.0.0.1:8000/api/users/${id}`)
                 .then(response => {
-                    this.order = response.data;
+                    this.formData = response.data;
                 })
                 .catch(error => {
                     console.error('Error fetching order:', error);
                 });
         },
-        updateOrder() {
-            const orderId = this.$route.params.id;
-            axios.put(`http://127.0.0.1:8000/api/orders/${orderId}`, this.order)
+        updateData() {
+            const id = this.$route.params.id;
+            axios.put(`http://127.0.0.1:8000/api/users/${id}`, this.formData)
                 .then(response => {
                     alert('Data berhasil di ubah');
                     this.$router.push('/order');
@@ -62,7 +62,7 @@ export default {
         }
     },
     mounted() {
-        this.fetchOrder();
+        this.fetchData();
     }
 };
 </script>

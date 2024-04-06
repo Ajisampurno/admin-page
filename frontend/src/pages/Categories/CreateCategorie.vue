@@ -37,17 +37,17 @@ export default {
     },
     methods: {
         createData() {
-            axios.post('http://127.0.0.1:8000/api/orders', {
+            axios.post('http://127.0.0.1:8000/api/categories', {
                 pd_id: this.pd_id,
                 amount: this.amount
             })
                 .then(response => {
                     console.log('Order created:', response.data);
                     alert('Data berhasil di tambahan');
-                    this.$router.push('/order');
+                    this.$router.push('/categorie');
                 })
                 .catch(error => {
-                    console.error('Error creating order:', error);
+                    console.error('Error creating categorie:', error);
                 });
         }
     }
