@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -17,23 +18,29 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // Validate incoming request
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:6',
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required'],
+            'address' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
 
-        // Create and save the new user
-        $user = new User([
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'phone_number' => $request->phone_number,
+            'address' => $request->phone_number,
+            'password' => Hash::make($request->password),
         ]);
-        $user->save();
 
-        // Return a response
-        return response()->json(['message' => 'User registered successfully'], 201);
+        $token = $user->createToken('remember_token')->plainTextToken;
+
+        return response()->json(['token' => $token], 201);
     }
 
     /**
@@ -42,22 +49,30 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+        $email = request('email');
+        $password = request('password');
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            return $this->response(false, null, "User Not Found");
+        }
+        $requestpass = Hash::make($password);
+        if (!Hash::check($request->password, $user->password)) {
+            return $this->response(false, null, "Wrong Password");
         }
 
-        $token = $user->createToken('MyAppToken')->accessToken;
 
-        return response()->json(['token' => $token], 200);
+        // if(!Auth::check($data)){
+        //     return $this->response(false,null,"Login Gagal Cuy");
+        // }
+        // $user=Auth::user();
+        $token = $user->createToken('API Token')->accessToken;
+        return response()->json([
+            'token' => $token,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -68,12 +83,11 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        // Revoke the token
-        $request->user()->token()->revoke();
+        Auth::logout();
 
-        // Return a response
-        return response()->json(['message' => 'Logout successful'], 200);
+        return response()->json(['message' => 'Logout successful']);
     }
+
     public function index()
     {
         $data = User::all();
