@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::all();
+        $data = Product::with('categorie')->get();
         return response()->json($data);
     }
 
@@ -51,7 +51,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json($product);
+        $data = Product::with('categorie')
+            ->where('id', $product->id)->get();
+        return response()->json($data);
     }
 
     /**

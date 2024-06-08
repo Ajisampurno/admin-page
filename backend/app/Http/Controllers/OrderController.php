@@ -15,8 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data = Order::select('orders.id', 'name', 'amount')
-            ->join('products', 'products.id', '=', 'orders.pd_id')
+        $data = Order::select('orders.*', 'products.name as product_name')
+            ->join('products', 'products.id', '=', 'orders.product_id')
             ->get();
         return response()->json($data);
     }
@@ -51,7 +51,12 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return response()->json($order);
+        $data = Order::select('orders.*', 'products.name as product_name')
+            ->join('products', 'products.id', '=', 'orders.product_id')
+            ->where('orders.id', $order->id)
+            ->get();
+
+        return response()->json($data);
     }
 
     /**

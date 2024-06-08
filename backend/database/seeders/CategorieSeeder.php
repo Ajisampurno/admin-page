@@ -21,7 +21,6 @@ class CategorieSeeder extends Seeder
 
         for ($i = 0; $i < 5; $i++) {
             Categorie::create([
-                'code' => $faker->unique()->regexify('[A-Z]{1}-[0-9]{3}'),
                 'name' => $faker->name,
             ]);
         }

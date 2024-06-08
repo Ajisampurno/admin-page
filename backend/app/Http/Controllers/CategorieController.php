@@ -86,8 +86,13 @@ class CategorieController extends Controller
      */
     public function destroy(Categorie $categorie, $id)
     {
-        $data = Categorie::findOrFail($id);
-        $data->delete();
-        return response()->json(['message' => 'Produk berhasil dihapus'], 200);
+        $data = Categorie::find($id);
+        if ($data) {
+            $data->products()->delete();
+            $data->delete();
+            return redirect()->route('categories.index')->with('success', 'Category and its related products have been deleted successfully.');
+        } else {
+            return redirect()->route('categories.index')->with('error', 'Category not found.');
+        }
     }
 }
