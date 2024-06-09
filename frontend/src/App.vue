@@ -1,11 +1,102 @@
 <template>
-  <v-app>
-    <v-main>
-      <HelloWorld />
-    </v-main>
-  </v-app>
+  <v-card>
+    <v-layout>
+      <v-app-bar color="primary" prominent>
+        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>My Admin</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <template v-if="$vuetify.display.mdAndUp">
+          <v-btn icon="mdi-magnify" variant="text"></v-btn>
+          <v-btn icon="mdi-filter" variant="text"></v-btn>
+        </template>
+        <v-btn icon="mdi-dots-vertical" variant="text"></v-btn>
+      </v-app-bar>
+
+      <v-navigation-drawer
+        v-model="drawer"
+        :location="$vuetify.display.mobile ? 'bottom' : undefined"
+        temporary
+      >
+        <v-list>
+          <v-list-item
+            v-for="item in items"
+            :key="item.value"
+            :to="item.route"
+            tag="router-link"
+            class="ListMenu"
+            active-class="active-item"
+          >
+            <div class="d-flex">
+              <v-list-item-icon>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content class="ms-2">
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-main style="height: 500px;">
+        <v-card-text>
+          The navigation drawer will appear from the bottom on smaller size screens.
+        </v-card-text>
+      </v-main>
+    </v-layout>
+  </v-card>
 </template>
 
-<script setup lang="ts">
-  //
+<script>
+export default {
+  data: () => ({
+    drawer: false,
+    items: [
+      {
+        title: 'Dashboard',
+        value: 'dashboard',
+        icon: 'mdi-view-dashboard',
+        route: '/dashboard'
+      },
+      {
+        title: 'Manage Users',
+        value: 'manage-users',
+        icon: 'mdi-account',
+        route: '/manage-users'
+      },
+      {
+        title: 'Products',
+        value: 'products',
+        icon: 'mdi-package-variant',
+        route: '/products'
+      },
+      {
+        title: 'Category',
+        value: 'categories',
+        icon: 'mdi-shape',
+        route: '/categories'
+      },
+      {
+        title: 'Orders',
+        value: 'orders',
+        icon: 'mdi-cart',
+        route: '/orders'
+      },
+    ],
+  }),
+}
 </script>
+
+<style scoped>
+.ListMenu {
+  transition: background-color 0.3s;
+}
+
+.ListMenu:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.active-item {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+</style>

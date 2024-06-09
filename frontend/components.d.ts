@@ -7,6 +7,10 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Footer: typeof import('./src/components/Layouts/Footer.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Navbar: typeof import('./src/components/Layouts/Navbar.vue')['default']
+    Navigasi: typeof import('./src/components/Layouts/Navigasi.vue')['default']
+    Sidebar: typeof import('./src/components/Layouts/Sidebar.vue')['default']
   }
 }
