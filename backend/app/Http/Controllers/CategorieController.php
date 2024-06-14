@@ -15,7 +15,7 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $data = Categorie::all();
+        $data = Categorie::all()->toArray();
         return response()->json($data);
     }
 

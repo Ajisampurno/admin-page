@@ -18,6 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $data = Product::with('categorie')->get();
+
         return response()->json($data);
     }
 
@@ -39,8 +40,18 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $data = Product::create($request->all());
-        return response()->json($data, 201);
+        // Validasi berhasil, data diambil dari request yang sudah divalidasi
+        $validated = $request->validated();
+
+        // Buat produk baru dengan data yang telah divalidasi
+        $product = Product::create([
+            'name' => $validated['name'],
+            'categorie_id' => $validated['categorie_id'],
+            'price' => $validated['price'],
+        ]);
+
+        // Mengembalikan respons JSON dengan data produk yang baru ditambahkan
+        return response()->json($product, 201);
     }
 
     /**

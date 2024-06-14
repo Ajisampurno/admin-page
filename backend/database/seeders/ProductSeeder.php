@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             Product::create([
                 'categorie_id' => $faker->numberBetween(1, 5),
                 'name' => $faker->name,

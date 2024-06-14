@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
 });
 Route::resource('users', AuthController::class);
 Route::resource('products', ProductController::class);
+
 Route::resource('categories', CategorieController::class);
 Route::resource('orders', OrderController::class);
 

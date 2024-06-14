@@ -38,9 +38,9 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-main style="height: 500px;">
-        <v-card-text>
-          The navigation drawer will appear from the bottom on smaller size screens.
+      <v-main>
+        <v-card-text class="bg-surface-light pt-4">
+          <DataTable />
         </v-card-text>
       </v-main>
     </v-layout>
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import DataTable from '@/components/Product/DataTable.vue'
+
 export default {
   data: () => ({
     drawer: false,
@@ -84,6 +86,9 @@ export default {
       },
     ],
   }),
+  components: {
+    DataTable
+  }
 }
 </script>
 
