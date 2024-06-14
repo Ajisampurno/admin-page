@@ -123,7 +123,7 @@
     </v-data-table>
   </v-container>
 </template>
-<script>
+<script lang="ts">
 import axios from 'axios';
 
 export default {
@@ -131,7 +131,7 @@ export default {
     return {
       searchQuery: '',
       selectedCategory: null,
-      products: [],
+      datas: [],
       categories: [],
       headers: [
         { title: 'ID', key: 'id', align: 'start', sortable: true },
@@ -165,7 +165,7 @@ export default {
   },
   computed: {
     filteredItems() {
-      let items = this.products;
+      let items = this.datas;
 
       if (this.searchQuery) {
         items = items.filter(item =>
@@ -184,7 +184,7 @@ export default {
     fetchData() {
       axios.get('http://127.0.0.1:8000/api/products')
         .then(response => {
-          this.products = response.data;
+          this.datas = response.data;
         })
         .catch(error => {
           console.error('Error fetching data:', error);

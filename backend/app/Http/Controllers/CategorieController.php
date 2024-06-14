@@ -84,15 +84,15 @@ class CategorieController extends Controller
      * @param  \App\Models\Categorie  $categorie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categorie $categorie, $id)
+    public function destroy($id)
     {
         $data = Categorie::find($id);
         if ($data) {
             $data->products()->delete();
             $data->delete();
-            return redirect()->route('categories.index')->with('success', 'Category and its related products have been deleted successfully.');
+            return response()->json(['message' => 'Data berhasil dihapus'], 200);
         } else {
-            return redirect()->route('categories.index')->with('error', 'Category not found.');
+            return response()->json(['message' => 'Data gagal dihapus'], 500);
         }
     }
 }

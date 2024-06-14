@@ -7,13 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    DataTable: typeof import('./src/components/Product/DataTable.vue')['default']
-    EditItemDialog: typeof import('./src/components/Product/EditItemDialog.vue')['default']
-    Footer: typeof import('./src/components/Layouts/Footer.vue')['default']
+    CategorieTable: typeof import('./src/components/categorie/CategorieTable.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    Navbar: typeof import('./src/components/Layouts/Navbar.vue')['default']
-    Navigasi: typeof import('./src/components/Layouts/Navigasi.vue')['default']
-    Sidebar: typeof import('./src/components/Layouts/Sidebar.vue')['default']
-    Table: typeof import('./src/components/Product/Table.vue')['default']
+    ProductTable: typeof import('./src/components/product/ProductTable.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    UserTable: typeof import('./src/components/user/UserTable.vue')['default']
   }
 }

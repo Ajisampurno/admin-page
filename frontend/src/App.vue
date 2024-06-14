@@ -1,5 +1,7 @@
+<!-- src/App.vue -->
 <template>
-  <v-card>
+  <v-app>
+    <v-card>
     <v-layout>
       <v-app-bar color="primary" prominent>
         <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -37,19 +39,15 @@
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
-
       <v-main>
-        <v-card-text class="bg-surface-light pt-4">
-          <DataTable />
-        </v-card-text>
+        <router-view></router-view>
       </v-main>
     </v-layout>
   </v-card>
+</v-app>
 </template>
 
-<script>
-import DataTable from '@/components/Product/DataTable.vue'
-
+<script lang="ts">
 export default {
   data: () => ({
     drawer: false,
@@ -64,19 +62,19 @@ export default {
         title: 'Manage Users',
         value: 'manage-users',
         icon: 'mdi-account',
-        route: '/manage-users'
+        route: '/user'
       },
       {
         title: 'Products',
         value: 'products',
         icon: 'mdi-package-variant',
-        route: '/products'
+        route: '/product'
       },
       {
         title: 'Category',
         value: 'categories',
         icon: 'mdi-shape',
-        route: '/categories'
+        route: '/categorie'
       },
       {
         title: 'Orders',
@@ -85,10 +83,7 @@ export default {
         route: '/orders'
       },
     ],
-  }),
-  components: {
-    DataTable
-  }
+  })
 }
 </script>
 
