@@ -22,6 +22,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'phone_number' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
+            'created_at' => $this->faker->date('Y-m-d')
         ];
     }
 

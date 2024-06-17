@@ -25,6 +25,7 @@ class UsersTableSeeder extends Seeder
                 'phone_number' => $faker->phoneNumber,
                 'address' => $faker->address,
                 'password' => bcrypt('password'),
+                'created_at' => $faker->date('Y-m-d')
             ]);
         }
     }

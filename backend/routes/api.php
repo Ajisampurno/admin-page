@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -24,9 +25,9 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::middleware('auth:api')->group(function () {
 
+    Route::resource('dashboards', DashboardController::class);
     Route::resource('users', AuthController::class);
     Route::resource('products', ProductController::class);
-
     Route::resource('categories', CategorieController::class);
     Route::resource('orders', OrderController::class);
 

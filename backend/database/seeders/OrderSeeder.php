@@ -21,7 +21,8 @@ class OrderSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             Order::create([
                 'product_id' => $faker->numberBetween(1, 10),
-                'amount' => $faker->randomFloat(3, 1000, 1000000)
+                'amount' => $faker->randomFloat(2, 1000, 1000000),
+                'created_at' => $faker->date('Y-m-d')
             ]);
         }
     }

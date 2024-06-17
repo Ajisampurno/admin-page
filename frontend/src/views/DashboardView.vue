@@ -2,19 +2,19 @@
 <template>
     <v-container>
         <v-row justify="center">
-            <v-col cols="12" md="12">
+            <v-col cols="12" md="12" sm="12">
                 <CardGroup />
             </v-col>
         </v-row>
     </v-container>
     <v-container>
         <v-row justify="center">
-            <v-col cols="12" md="8" sm="12">
+            <v-col cols="12" md="8" sm="6">
                 <v-card elevation="3" title="Line Chart">
                     <LineChart />
                 </v-card>
             </v-col>
-            <v-col cols="12" md="4" sm="12">
+            <v-col cols="12" md="4" sm="6">
                 <v-card elevation="3" title="Donut Chart">
                     <DonutChart />
                 </v-card>

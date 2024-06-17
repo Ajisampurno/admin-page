@@ -39,10 +39,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('LaravelPassport')->accessToken;
+        $token = $user->createToken('remember_token')->plainTextToken;
 
-        return $token;
-        //return response()->json(['token' => $token], 201);
+        return response()->json(['token' => $token], 201);
     }
 
     /**

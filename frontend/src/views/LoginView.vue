@@ -35,7 +35,6 @@ export default {
         });
         this.loading = false;
         console.log('Login successful', response.data);
-        // Handle successful login (e.g., store token, redirect to dashboard)
         localStorage.setItem('token', response.data.token);
         this.$router.push({ name: 'dashboard' });
       } catch (error) {
