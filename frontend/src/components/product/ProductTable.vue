@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <!-- Snackbar for notifications -->
-    <v-snackbar v-model="snackbar" :timeout="3000" color="success">
+    <v-snackbar v-model="snackbar" :timeout="3000">
       {{ snackbarMessage }}
-      <v-btn text @click="snackbar = false">Close</v-btn>
+      <v-btn color="success" varian="text" @click="snackbar = false">Close</v-btn>
     </v-snackbar>
 
     <!-- Delete confirmation dialog -->
@@ -14,8 +14,8 @@
           Are you sure you want to delete this item?
         </v-card-text>
         <v-card-actions>
-          <v-btn color="blue darken-1" text @click="confirmDialog = false">Cancel</v-btn>
-          <v-btn color="red darken-1" text @click="deleteConfirmed">Delete</v-btn>
+          <v-btn color="blue darken-1" @click="confirmDialog = false">Cancel</v-btn>
+          <v-btn color="red darken-1" @click="deleteConfirmed">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -41,8 +41,8 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="blue darken-1" text @click="addDialog = false">Cancel</v-btn>
-          <v-btn color="green darken-1" text @click="save">Add</v-btn>
+          <v-btn color="blue darken-1" @click="addDialog = false">Cancel</v-btn>
+          <v-btn color="green darken-1" @click="save">Add</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -68,8 +68,8 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="blue darken-1" text @click="editDialog = false">Cancel</v-btn>
-          <v-btn color="green darken-1" text @click="saveChanges">Save</v-btn>
+          <v-btn color="blue darken-1" @click="editDialog = false">Cancel</v-btn>
+          <v-btn color="green darken-1" @click="saveChanges">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -110,7 +110,7 @@
       :items-per-page="10"
       height="300"
       mobile-breakpoint="600"
-      class="elevation-1"
+      class="elevation-20"
     >
       <template v-slot:item.action="{ item }">
         <v-icon color="blue darken-1" small @click="editItem(item)">
@@ -124,7 +124,7 @@
   </v-container>
 </template>
 <script lang="ts">
-import axios from 'axios';
+import http from "@/plugins/axios";
 
 export default {
   data() {
@@ -182,7 +182,7 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get('http://127.0.0.1:8000/api/products')
+      http.get('http://127.0.0.1:8000/api/products')
         .then(response => {
           this.datas = response.data;
         })
@@ -191,7 +191,7 @@ export default {
         });
     },
     fetchCategories() {
-      axios.get('http://127.0.0.1:8000/api/categories')
+      http.get('http://127.0.0.1:8000/api/categories')
         .then(response => {
           this.categories = response.data;
         })
@@ -205,7 +205,7 @@ export default {
     save() {
       this.$refs.addForm.validate().then(success => {
         if (success) {
-          axios.post('http://127.0.0.1:8000/api/products', {
+          http.post('http://127.0.0.1:8000/api/products', {
             name: this.newItem.name,
             categorie_id: this.newItem.categorie_id,
             price: this.newItem.price,
@@ -230,7 +230,7 @@ export default {
     saveChanges() {
       this.$refs.editForm.validate().then(success => {
         if (success) {
-          axios.put(`http://127.0.0.1:8000/api/products/${this.editedItem.id}`, {
+          http.put(`http://127.0.0.1:8000/api/products/${this.editedItem.id}`, {
             name: this.editedItem.name,
             categorie_id: this.editedItem.categorie_id,
             price: this.editedItem.price,
@@ -253,7 +253,7 @@ export default {
     },
     deleteConfirmed() {
       if (this.itemToDelete) {
-        axios.delete(`http://127.0.0.1:8000/api/products/${this.itemToDelete.id}`)
+        http.delete(`http://127.0.0.1:8000/api/products/${this.itemToDelete.id}`)
           .then(response => {
             this.fetchData();
             this.snackbarMessage = 'Product deleted successfully.';

@@ -24,7 +24,7 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'pd_id' => 'required',
+            'product_id' => 'required',
             'amount' => 'required',
         ];
     }

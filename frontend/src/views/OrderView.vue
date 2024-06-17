@@ -1,5 +1,5 @@
 <template>
-    <OrderTable/>
+  <OrderTable/>
 </template>
 <script>
 export default {

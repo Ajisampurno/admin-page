@@ -1,11 +1,3 @@
 <template>
-    <v-card-text class="bg-surface-light pt-4">
-        <ProductTable />
-    </v-card-text>
+    <ProductTable/>
 </template>
-<script>
-export default {
-  data() {
-  }
-}
-</script>

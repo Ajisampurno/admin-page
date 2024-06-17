@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
@@ -15,9 +16,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data = Order::select('orders.*', 'products.name as product_name')
+        $data = Order::select('orders.id', 'amount', 'products.name as product_name', 'categories.name as categorie_name', 'orders.created_at')
             ->join('products', 'products.id', '=', 'orders.product_id')
+            ->join('categories', 'categories.id', '=', 'products.categorie_id')
             ->get();
+
         return response()->json($data);
     }
 

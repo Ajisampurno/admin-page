@@ -26,10 +26,17 @@
         <v-card-title class="headline">Add Product</v-card-title>
         <v-card-text>
           <v-container>
-             <v-text-field v-model="newItem.name" label="Name"></v-text-field>
-             <v-text-field v-model="newItem.email" label="Email"></v-text-field>
-             <v-text-field v-model="newItem.phone_number" label="Phone Number"></v-text-field>
-             <v-text-field v-model="newItem.address" label="Address"></v-text-field>
+            <v-form ref="addForm">
+              <v-select
+                v-model="newItem.product_id"
+                :items="products"
+                item-text="name"
+                item-title="name"
+                item-value="id"
+                label="Product"
+              ></v-select>
+              <v-text-field v-model="newItem.amount" label="amount" type="number"></v-text-field>
+            </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -45,7 +52,17 @@
         <v-card-title class="headline">Edit Product</v-card-title>
         <v-card-text>
           <v-container>
-            
+            <v-form ref="editForm">
+              <v-select
+                v-model="editedItem.product_id"
+                :items="products"
+                item-text="name"
+                item-title="name"
+                item-value="id"
+                label="Product"
+                ></v-select>
+              <v-text-field v-model="editedItem.amount" label="amount" type="number"></v-text-field>
+            </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -58,7 +75,7 @@
     <!-- Data table -->
     <v-card color="primary" class="d-flex flex-column flex-md-row pa-4">
       <v-card-title class="mt-2">
-        <h2>User</h2>
+        <h2>Product</h2>
       </v-card-title>
       <v-spacer></v-spacer>
       <v-text-field
@@ -70,6 +87,30 @@
         density="compact"
         class="mt-5 me-md-2 me-0"
       ></v-text-field>
+      <v-select
+        v-model="selectedproduct"
+        :items="products"
+        item-title="name"
+        item-text="name"
+        item-value="product_name"
+        label="Filter by Products"
+        clearable
+        variant="solo"
+        density="compact"
+        class="mt-5 me-md-2 me-0"
+      ></v-select>
+      <v-select
+        v-model="selectedcategorie"
+        :items="categories"
+        item-title="name"
+        item-text="name"
+        item-value="categorie_name"
+        label="Filter by Categories"
+        clearable
+        variant="solo"
+        density="compact"
+        class="mt-5"
+      ></v-select>
       <v-btn icon="mdi-plus" size="x-large" variant="text" class="mt-5 mt-md-0" @click="addItem"></v-btn>
     </v-card>
 
@@ -92,7 +133,6 @@
     </v-data-table>
   </v-container>
 </template>
-
 <script lang="ts">
 import http from "@/plugins/axios";
 
@@ -100,15 +140,16 @@ export default {
   data() {
     return {
       searchQuery: '',
-      selectedCategory: null,
+      selectedproduct: null,
+      selectedcategorie: null,
       datas: [],
+      products: [],
       categories: [],
       headers: [
         { title: 'ID', key: 'id', align: 'start', sortable: true },
-        { title: 'Name', key: 'name', align: 'start', sortable: true },
-        { title: 'Email', key: 'email', align: 'start', sortable: true },
-        { title: 'Phone_number', key: 'phone_number', align: 'start', sortable: true },
-        { title: 'Address', key: 'address', align: 'start', sortable: true },
+        { title: 'Product', key: 'product_name', align: 'start', sortable: true },
+        { title: 'Categories', key: 'categorie_name', align: 'start', sortable: false },
+        { title: 'Amount', key: 'amount', align: 'start', sortable: true },
         { title: 'Actions', key: 'action', sortable: false },
     ],
       confirmDialog: false,
@@ -117,16 +158,12 @@ export default {
       editDialog: false,
       newItem: {
         name: '',
-        email: null,
-        phone_number: null,
-        address: '',
+        product_id: null,
+        amount: null,
       },
       editedItem: {
-        id: null,
-        name: '',
-        email: null,
-        phone_number: null,
-        address: '',
+        product_id: null,
+        amount: null,
       },
       snackbar: false,
       snackbarMessage: '',
@@ -134,27 +171,52 @@ export default {
   },
   created() {
     this.fetchData();
+    this.fetchProducts();
+    this.fetchCategories();
   },
   computed: {
     filteredItems() {
       let items = this.datas;
-
       if (this.searchQuery) {
         items = items.filter(item =>
-          item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+          item.product_name.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
+      }
+      if (this.selectedproduct) {
+        items = items.filter(item => item.product_name === this.selectedproduct);
+      }
+      if (this.selectedcategorie) {
+        items = items.filter(item => item.categorie_name === this.selectedcategorie);
       }
       return items;
     },
   },
   methods: {
     fetchData() {
-      http.get('http://127.0.0.1:8000/api/users')
+      http.get('http://127.0.0.1:8000/api/orders')
         .then(response => {
           this.datas = response.data;
         })
         .catch(error => {
           console.error('Error fetching data:', error);
+        });
+    },
+    fetchProducts() {
+      http.get('http://127.0.0.1:8000/api/products')
+        .then(response => {
+          this.products = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching categories:', error);
+        });
+    },
+    fetchCategories() {
+      http.get('http://127.0.0.1:8000/api/categories')
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching categories:', error);
         });
     },
     addItem() {
@@ -163,43 +225,33 @@ export default {
     save() {
       this.$refs.addForm.validate().then(success => {
         if (success) {
-          http.post('http://127.0.0.1:8000/api/users', {
-            name: this.newItem.name,
-            email: this.newItem.email,
-            phone_number: this.newItem.phone_number,
-            address: this.newItem.address,
+          http.post('http://127.0.0.1:8000/api/orders', {
+            product_id: this.newItem.product_id,
+            amount: this.newItem.amount,
           })
           .then(response => {
             this.fetchData();
             this.addDialog = false;
             this.snackbarMessage = 'Product added successfully.';
             this.snackbar = true;
-            this.newItem = 
-              { 
-                name: '', 
-                email: '', 
-                phone_number: null,
-                address: '', 
-              };
+            this.newItem = { product_id: null, amount: null };
           })
           .catch(error => {
-            console.error('Error adding product:', error);
+            console.error('Error adding data:', error);
           });
         }
       });
     },
     editItem(item) {
-      this.editedItem = { ...item };
+      this.editedItem = { ...item, product_id: item.product_id };
       this.editDialog = true;
     },
     saveChanges() {
       this.$refs.editForm.validate().then(success => {
         if (success) {
-          http.put(`http://127.0.0.1:8000/api/users/${this.editedItem.id}`, {
-            name: this.editedItem.name,
-            email: this.editedItem.email,
-            phone_number: this.editedItem.phone_number,
-            address: this.editedItem.address,
+          http.put(`http://127.0.0.1:8000/api/orders/${this.editedItem.id}`, {
+            product_id: this.editedItem.product_id,
+            amount: this.editedItem.amount,
           })
           .then(response => {
             this.fetchData();
@@ -219,7 +271,7 @@ export default {
     },
     deleteConfirmed() {
       if (this.itemToDelete) {
-        http.delete(`http://127.0.0.1:8000/api/users/${this.itemToDelete.id}`)
+        http.delete(`http://127.0.0.1:8000/api/orders/${this.itemToDelete.id}`)
           .then(response => {
             this.fetchData();
             this.snackbarMessage = 'Product deleted successfully.';

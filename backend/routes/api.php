@@ -18,20 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
+
 Route::middleware('auth:api')->group(function () {
+
+    Route::resource('users', AuthController::class);
+    Route::resource('products', ProductController::class);
+
+    Route::resource('categories', CategorieController::class);
+    Route::resource('orders', OrderController::class);
+
+    // Route untuk logout
+    Route::post('logout', [AuthController::class, 'logout']);
 });
-Route::resource('users', AuthController::class);
-Route::resource('products', ProductController::class);
-
-Route::resource('categories', CategorieController::class);
-Route::resource('orders', OrderController::class);
-
-// Route untuk logout
-Route::post('logout', [AuthController::class, 'logout']);

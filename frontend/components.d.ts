@@ -7,8 +7,18 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BarChart: typeof import('./src/components/dashboard/BarChart.vue')['default']
+    CardGroup: typeof import('./src/components/dashboard/CardGroup.vue')['default']
     CategorieTable: typeof import('./src/components/categorie/CategorieTable.vue')['default']
+    Chart: typeof import('./src/components/dashboard/Chart.vue')['default']
+    Chart2: typeof import('./src/components/dashboard/Chart2.vue')['default']
+    copy: typeof import('./src/components/dashboard/Chart copy.vue')['default']
+    DonutChart: typeof import('./src/components/dashboard/DonutChart.vue')['default']
+    Footer: typeof import('./src/components/Footer.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    LineChart: typeof import('./src/components/dashboard/LineChart.vue')['default']
+    Navigasi: typeof import('./src/components/Navigasi.vue')['default']
+    OrderTable: typeof import('./src/components/order/OrderTable.vue')['default']
     ProductTable: typeof import('./src/components/product/ProductTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

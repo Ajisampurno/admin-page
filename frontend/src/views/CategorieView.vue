@@ -1,7 +1,5 @@
 <template>
-    <v-card-text class="bg-surface-light pt-4">
-        <CategorieTable/>
-    </v-card-text>
+    <CategorieTable/>
 </template>
 <script>
 export default {
