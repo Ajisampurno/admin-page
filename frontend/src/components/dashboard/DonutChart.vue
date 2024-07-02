@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart width="350" type="donut" :options="options" :series="series" class="my-6"></apexchart>
+    <apexchart width="350" type="donut" :options="chartOptions" :series="series" class="my-6"></apexchart>
   </div>
 </template>
 
@@ -13,30 +13,28 @@ export default {
   components: {
     apexchart: VueApexCharts
   },
-  data() {
-    return {
-      options: {
-        labels: []
-      },
-      series: []
+  props: {
+    data: {
+      type: Array,
+      default: () => []
     }
   },
-  mounted() {
-    http.get('http://127.0.0.1:8000/api/dashboards')
-      .then(response => {
-        const data = response.data.categories_percentage;
-        const data_series = data.map(item => item.percentage);
-        const data_labels = data.map(item => item.category_name);
-
-        this.series = data_series;
-        this.options = {
-          labels: data_labels
-        };
-
-      })
-      .catch(error => {
-        console.error("Fetching data error!", error);
-      });
+  computed: {
+    chartOptions() {
+      const labels = this.data.map(item => item.category_name);
+      return {
+        labels
+      };
+    },
+    series() {
+      return this.data.map(item => item.percentage);
+    }
   }
 };
 </script>
+
+<style scoped>
+.my-6 {
+  margin: 1.5rem 0;
+}
+</style>

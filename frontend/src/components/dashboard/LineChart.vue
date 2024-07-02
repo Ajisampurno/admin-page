@@ -10,50 +10,60 @@ import http from '@/plugins/axios'
 
 export default {
   name: 'ChartComponent',
+  props: {
+    data:{
+      default: null
+    }
+  },
   components: {
     apexchart: VueApexCharts
   },
   data() {
     return {
-      options: {
-        chart: {
-          id: ''
-        },
-        xaxis: {
-          categories: []
-        }
-      },
-      series: [{
-        name: '',
-        data: []
-      }]
     }
   },
-  mounted() {
-    http.get('http://127.0.0.1:8000/api/dashboards')
-      .then(response => {
-        const data = response.data.orders_by_year;
-        const data_series = data.map(item => item.total_orders);
-        const data_categories = data.map(item => item.year);
-
-        this.options = {
+  computed: {
+    options(){
+      if (this.data) {
+        const data_categories = this.data.map(item => item.year);  
+        return {
           chart: {
             id: 'vuechart-example'
           },
           xaxis:{
             categories: data_categories
           },
-        };
-        this.series= [
+        }
+      }else{
+        return {
+          chart: {
+            id: 'vuechart-example'
+          },
+          xaxis:{
+            categories: []
+          },
+        }
+      }
+    },
+    series(){
+      if (this.data) {
+        
+        const data_series = this.data.map(item => item.total_orders);
+        return [
           {
-            name: 'series-1',
+            name: 'Total penjualan:',
             data: data_series
           }
         ]
-      })
-      .catch(error => {
-        console.error("Fetching data error!", error);
-      });
+      }else{
+        return [
+          {
+            name: 'Total penjualan:',
+            data: []
+          }
+        ]
+      }
+      }
   }
 }
 </script>

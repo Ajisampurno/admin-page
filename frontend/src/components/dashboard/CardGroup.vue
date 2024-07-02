@@ -8,7 +8,7 @@
                 max-width="344"
                 prepend-icon="mdi-account"
                 rel="noopener"
-                :subtitle="`Total User: ${data_user}`"
+                :subtitle="`Total User: ${data.user_count}`"
                 target="_blank"
                 title="User"
                 elevation="3"
@@ -22,7 +22,7 @@
                 max-width="344"
                 prepend-icon="mdi-package-variant"
                 rel="noopener"
-                :subtitle="`Total Product: ${data_product}`"
+                :subtitle="`Total Product: ${data.product_count}`"
                 target="_blank"
                 title="Product"
                 elevation="3"
@@ -36,7 +36,7 @@
                 max-width="344"
                 prepend-icon="mdi-shape"
                 rel="noopener"
-                :subtitle="`Total Categorie: ${data_categorie}`"
+                :subtitle="`Total Categorie: ${data.categorie_count}`"
                 target="_blank"
                 title="Categorie"
                 elevation="3"
@@ -50,7 +50,7 @@
                 max-width="344"
                 prepend-icon="mdi-cart"
                 rel="noopener"
-                :subtitle="`Total Order: ${data_order}`"
+                :subtitle="`Total Order: ${data.order_count}`"
                 target="_blank"
                 title="Order"
                 elevation="3"
@@ -65,25 +65,15 @@ import http from '@/plugins/axios'
 
 export default {
   name: 'ChartComponent',
-  data() {
-    return {
-      data_user: '',
-      data_product: '',
-      data_categorie: '',
-      data_order: '',
+  props: {
+    data:{
+      default: {}
     }
   },
-  mounted() {
-    http.get('http://127.0.0.1:8000/api/dashboards')
-      .then(response => {
-        this.data_user = response.data.user_count;
-        this.data_product = response.data.product_count;
-        this.data_categorie = response.data.categorie_count;
-        this.data_order = response.data.order_count;
-      })
-      .catch(error => {
-        console.error("Fetching data error!", error);
-      });
+  data() {
+    return {
+
+    }
   }
 };
 </script>

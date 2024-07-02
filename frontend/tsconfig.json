@@ -12,12 +12,10 @@
     "resolveJsonModule": true,
     "types": [
       "vite/client",
-      "vite-plugin-vue-layouts/client",
-      "unplugin-vue-router/client"
     ],
     "allowJs": true,
-    "strict": true,
-    "strictNullChecks": true,
+    "strict": false,
+    "strictNullChecks": false,
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

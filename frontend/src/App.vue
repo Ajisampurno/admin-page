@@ -18,7 +18,7 @@
   </v-app>
 </template>
 
-<script>
+<script >
 import { useRoute } from 'vue-router';
 import { defineComponent } from 'vue';
 
