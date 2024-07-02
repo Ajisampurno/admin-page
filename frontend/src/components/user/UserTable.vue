@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     fetchData() {
-      http.get('http://127.0.0.1:8000/api/users')
+      http.get('https://essasentosa.my.id/api/users')
         .then(response => {
           this.datas = response.data;
         })
@@ -163,7 +163,7 @@ export default {
     save() {
       this.$refs.addForm.validate().then(success => {
         if (success) {
-          http.post('http://127.0.0.1:8000/api/users', {
+          http.post('https://essasentosa.my.id/api/users', {
             name: this.newItem.name,
             email: this.newItem.email,
             phone_number: this.newItem.phone_number,
@@ -195,7 +195,7 @@ export default {
     saveChanges() {
       this.$refs.editForm.validate().then(success => {
         if (success) {
-          http.put(`http://127.0.0.1:8000/api/users/${this.editedItem.id}`, {
+          http.put(`https://essasentosa.my.id/api/users/${this.editedItem.id}`, {
             name: this.editedItem.name,
             email: this.editedItem.email,
             phone_number: this.editedItem.phone_number,
@@ -219,7 +219,7 @@ export default {
     },
     deleteConfirmed() {
       if (this.itemToDelete) {
-        http.delete(`http://127.0.0.1:8000/api/users/${this.itemToDelete.id}`)
+        http.delete(`https://essasentosa.my.id/api/users/${this.itemToDelete.id}`)
           .then(response => {
             this.fetchData();
             this.snackbarMessage = 'Product deleted successfully.';

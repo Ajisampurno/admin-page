@@ -29,7 +29,7 @@ export default {
       this.loading = true;
       this.error = '';
       try {
-        const response = await http.post('http://127.0.0.1:8000/api/login', {
+        const response = await http.post('https://essasentosa.my.id/api/login', {
           email: this.email,
           password: this.password,
         });

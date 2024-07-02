@@ -182,7 +182,7 @@ export default {
   },
   methods: {
     fetchData() {
-      http.get('http://127.0.0.1:8000/api/products')
+      http.get('https://essasentosa.my.id/api/products')
         .then(response => {
           this.datas = response.data;
         })
@@ -191,7 +191,7 @@ export default {
         });
     },
     fetchCategories() {
-      http.get('http://127.0.0.1:8000/api/categories')
+      http.get('https://essasentosa.my.id/api/categories')
         .then(response => {
           this.categories = response.data;
         })
@@ -205,7 +205,7 @@ export default {
     save() {
       this.$refs.addForm.validate().then(success => {
         if (success) {
-          http.post('http://127.0.0.1:8000/api/products', {
+          http.post('https://essasentosa.my.id/api/products', {
             name: this.newItem.name,
             categorie_id: this.newItem.categorie_id,
             price: this.newItem.price,
@@ -230,7 +230,7 @@ export default {
     saveChanges() {
       this.$refs.editForm.validate().then(success => {
         if (success) {
-          http.put(`http://127.0.0.1:8000/api/products/${this.editedItem.id}`, {
+          http.put(`https://essasentosa.my.id/api/products/${this.editedItem.id}`, {
             name: this.editedItem.name,
             categorie_id: this.editedItem.categorie_id,
             price: this.editedItem.price,
@@ -253,7 +253,7 @@ export default {
     },
     deleteConfirmed() {
       if (this.itemToDelete) {
-        http.delete(`http://127.0.0.1:8000/api/products/${this.itemToDelete.id}`)
+        http.delete(`https://essasentosa.my.id/api/products/${this.itemToDelete.id}`)
           .then(response => {
             this.fetchData();
             this.snackbarMessage = 'Product deleted successfully.';

@@ -34,7 +34,7 @@ export default {
     async onSubmit() {
       this.loading = true;
       try {
-        const response = await http.post('http://127.0.0.1:8000/api/register', {
+        const response = await http.post('https://essasentosa.my.id/api/register', {
           name: this.name,
           email: this.email,
           phone_number: this.phone_number,

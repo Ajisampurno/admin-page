@@ -35,7 +35,7 @@ export default{
         }
     },
     mounted() {
-    http.get('http://127.0.0.1:8000/api/dashboards')
+    http.get('https://essasentosa.my.id/api/dashboards')
       .then(response => {
         this.dataDashboard = response.data.data;
       })
