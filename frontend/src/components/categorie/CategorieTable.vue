@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     fetchData() {
-      http.get('https://essasentosa.my.id/api/categories')
+      http.get('/categories')
         .then(response => {
           this.datas = response.data;
         })
@@ -153,7 +153,7 @@ export default {
     save() {
       this.$refs.addForm.validate().then(success => {
         if (success) {
-          http.post('https://essasentosa.my.id/api/categories', {
+          http.post('/categories', {
             name: this.newItem.name
           })
           .then(response => {
@@ -176,7 +176,7 @@ export default {
     saveChanges() {
       this.$refs.editForm.validate().then(success => {
         if (success) {
-          http.put(`https://essasentosa.my.id/api/categories/${this.editedItem.id}`, {
+          http.put(`/categories/${this.editedItem.id}`, {
             name: this.editedItem.name,
           })
           .then(response => {
@@ -198,7 +198,7 @@ export default {
     deleteConfirmed() {
       console.log(this.itemToDelete)
       if (this.itemToDelete) {
-        http.delete(`https://essasentosa.my.id/api/categories/${this.itemToDelete.id}`)
+        http.delete(`/categories/${this.itemToDelete.id}`)
           .then(response => {
             this.fetchData();
             this.snackbarMessage = 'Product deleted successfully.';

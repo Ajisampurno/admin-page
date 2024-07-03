@@ -133,7 +133,7 @@
     </v-data-table>
   </v-container>
 </template>
-<script lang="ts">
+<script>
 import http from "@/plugins/axios";
 
 export default {
@@ -193,7 +193,7 @@ export default {
   },
   methods: {
     fetchData() {
-      http.get('https://essasentosa.my.id/api/orders')
+      http.get('/orders')
         .then(response => {
           this.datas = response.data;
         })
@@ -202,7 +202,7 @@ export default {
         });
     },
     fetchProducts() {
-      http.get('https://essasentosa.my.id/api/products')
+      http.get('/products')
         .then(response => {
           this.products = response.data;
         })
@@ -211,7 +211,7 @@ export default {
         });
     },
     fetchCategories() {
-      http.get('https://essasentosa.my.id/api/categories')
+      http.get('/categories')
         .then(response => {
           this.categories = response.data;
         })
@@ -225,7 +225,7 @@ export default {
     save() {
       this.$refs.addForm.validate().then(success => {
         if (success) {
-          http.post('https://essasentosa.my.id/api/orders', {
+          http.post('/orders', {
             product_id: this.newItem.product_id,
             amount: this.newItem.amount,
           })
@@ -249,7 +249,7 @@ export default {
     saveChanges() {
       this.$refs.editForm.validate().then(success => {
         if (success) {
-          http.put(`https://essasentosa.my.id/api/orders/${this.editedItem.id}`, {
+          http.put(`/orders/${this.editedItem.id}`, {
             product_id: this.editedItem.product_id,
             amount: this.editedItem.amount,
           })
@@ -271,7 +271,7 @@ export default {
     },
     deleteConfirmed() {
       if (this.itemToDelete) {
-        http.delete(`https://essasentosa.my.id/api/orders/${this.itemToDelete.id}`)
+        http.delete(`/orders/${this.itemToDelete.id}`)
           .then(response => {
             this.fetchData();
             this.snackbarMessage = 'Product deleted successfully.';

@@ -56,15 +56,18 @@ class DashboardController extends Controller
             ];
         }
 
-        return response()->json([
-            'user_count' => $userCount,
-            'product_count' => $productCount,
-            'categorie_count' => $categorieCount,
-            'order_count' => $orderCount,
-            'users_by_year' => $dataUserByYear,
-            'categories_percentage' => $categoriesPercentage,
-            'orders_by_year' => $dataOrderByYear,
-        ]);
+        return $this->myResponse(
+            [
+                'user_count' => $userCount,
+                'product_count' => $productCount,
+                'categorie_count' => $categorieCount,
+                'order_count' => $orderCount,
+                'users_by_year' => $dataUserByYear,
+                'categories_percentage' => $categoriesPercentage,
+                'orders_by_year' => $dataOrderByYear,
+            ],
+            'Query berhasil'
+        );
     }
 
 

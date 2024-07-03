@@ -34,7 +34,7 @@ export default {
     async onSubmit() {
       this.loading = true;
       try {
-        const response = await http.post('https://essasentosa.my.id/api/register', {
+        const response = await http.post('/register', {
           name: this.name,
           email: this.email,
           phone_number: this.phone_number,

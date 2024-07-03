@@ -1,4 +1,3 @@
-<!-- components/Login.vue -->
 <template>
   <v-card class="mx-auto px-6 py-8 mt-12" max-width="344">
     <v-form v-model="form" @submit.prevent="onSubmit">
@@ -29,18 +28,26 @@ export default {
       this.loading = true;
       this.error = '';
       try {
-        const response = await http.post('https://essasentosa.my.id/api/login', {
+        const response = await http.post('/login', {
           email: this.email,
           password: this.password,
         });
+
         this.loading = false;
-        console.log('Login successful', response.data);
-        localStorage.setItem('token', response.data.token);
-        this.$router.push({ name: 'dashboard' });
+
+        if (response.data.token) {
+          console.log('Login successful', response.data);
+          localStorage.setItem('token', response.data.token);
+          alert('login berhasil!');
+          this.$router.push({ name: 'dashboard' });
+        } else {
+          this.error = 'Login failed: Invalid token';
+          alert('Login gagal!');
+        }
       } catch (error) {
         this.loading = false;
-        this.error = 'Login failed: ' + (error.response.data.message || 'Unknown error');
-        console.error('Login failed', error.response.data);
+        this.error = 'Login failed: ' + (error.response?.data?.message || 'Unknown error');
+        console.error('Login failed', error.response?.data);
       }
     },
   },
